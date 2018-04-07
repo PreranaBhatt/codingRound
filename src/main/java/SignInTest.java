@@ -1,29 +1,38 @@
 import com.sun.javafx.PlatformUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SignInTest {
 
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
     @Test
     public void shouldThrowAnErrorIfSignInDetailsAreMissing() {
 
         setDriverPath();
-
+        driver = new ChromeDriver();
+        
         driver.get("https://www.cleartrip.com/");
         waitFor(2000);
 
         driver.findElement(By.linkText("Your trips")).click();
         driver.findElement(By.id("SignIn")).click();
+        
+        ////iframe[@id="modal_window"]
+        WebElement eleframe=driver.findElement(By.xpath("//div[@id='ModalFrame']//iframe[@id='modal_window']"));
 
-        driver.findElement(By.id("signInButton")).click();
+        driver.switchTo().frame(eleframe);
+        driver.findElement(By.xpath("//button[@id='signInButton']")).click();
 
         String errors1 = driver.findElement(By.id("errors1")).getText();
         Assert.assertTrue(errors1.contains("There were errors in your submission"));
+        driver.switchTo().defaultContent();
+        driver.findElement(By.xpath("//a[@id='close']")).click();
+       
         driver.quit();
     }
 

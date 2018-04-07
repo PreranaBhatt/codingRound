@@ -1,0 +1,28 @@
+I have created basic POM framework which contains :
+codingRound.Pages - contains locators or WebElement and reusable function based on functionality.
+
+CodingRoundTestscript-contains End to end Flows created with the help of reusable function.
+
+CodingRoundUtility: it contains frequently used reusable function
+
+
+_____________________________________________________________________________
+
+Error fixed:
+
+@findBy should be in page object class,as it got initialized by lazy intialization.
+driver = new chromeDriver
+before this statement we should call System.setproperty function.
+
+for Login : iframe is present in Login Page.
+			First ,we need to switch iframe,then only we would be able to perform any operation on webelement.
+			
+---------------------------------------------------------------------------------
+Suggestion for DatePicker.
+In given code,datePicker is hardcoded.
+
+It's xpath should be dynamic in nature.where we can provide any date,based on that it should click.
+or system can generate random date to pick.			
+
+
+ 		  
